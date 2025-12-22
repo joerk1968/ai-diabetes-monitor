@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+venv/
+diabetes_agent_env/
+Lib/
+Include/
+Scripts/
+share/
+pyvenv.cfg
