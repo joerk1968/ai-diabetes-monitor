@@ -1,7 +1,7 @@
 # data/synthetic_glucose_provider.py
 import random
 from datetime import datetime
-from glucose_provider import GlucoseProvider
+from data.glucose_provider import GlucoseProvider
 
 
 class SyntheticGlucoseProvider(GlucoseProvider):

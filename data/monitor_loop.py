@@ -1,8 +1,10 @@
 # monitor_loop.py
 import time
-from synthetic_glucose_provider import SyntheticGlucoseProvider
-from alert_engine import GlucoseAlertEngine
-from alert_notifier import AlertNotifier
+from data.synthetic_glucose_provider import SyntheticGlucoseProvider
+from data.alert_engine import GlucoseAlertEngine
+from data.alert_notifier import AlertNotifier
+from data.whatsapp_alert import send_whatsapp
+
 
 def run_monitoring_loop(interval_seconds=2):
     

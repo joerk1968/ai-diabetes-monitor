@@ -1,5 +1,5 @@
-from sms_sender import send_whatsapp, send_sms
-from ai_medical_advisor import AIMedicalAdvisor
+from data.sms_sender import send_sms,send_whatsapp
+from data.ai_medical_advisor import AIMedicalAdvisor
 
 class AlertNotifier:
     def __init__(self):
