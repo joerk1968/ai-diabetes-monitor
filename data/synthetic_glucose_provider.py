@@ -1,35 +1,23 @@
-# data/synthetic_glucose_provider.py
 import random
-from datetime import datetime
-from data.glucose_provider import GlucoseProvider
+import datetime
 
+class SyntheticGlucoseProvider:
+    def __init__(self):
+        self.value = 110
 
-class SyntheticGlucoseProvider(GlucoseProvider):
-    """
-    Generates realistic synthetic glucose readings
-    for demonstration and testing.
-    """
+    def get_reading(self):
+        change = random.randint(-15, 15)
+        self.value = max(50, min(250, self.value + change))
 
-    def __init__(self, start_value: int = 120):
-        self.current_value = start_value
-
-    def get_latest_reading(self):
-        # Random glucose change
-        change = random.randint(-25, 25)
-        previous = self.current_value
-        self.current_value = max(60, min(300, self.current_value + change))
-
-        # Determine trend
-        if self.current_value > previous:
+        trend = "stable"
+        if change > 5:
             trend = "rising"
-        elif self.current_value < previous:
+        elif change < -5:
             trend = "falling"
-        else:
-            trend = "stable"
 
         return {
-            "value": self.current_value,
+            "value": self.value,
             "unit": "mg/dL",
             "trend": trend,
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }

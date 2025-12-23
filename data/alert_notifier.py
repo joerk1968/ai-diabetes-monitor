@@ -1,28 +1,25 @@
-from data.sms_sender import send_sms,send_whatsapp
-from data.ai_medical_advisor import AIMedicalAdvisor
+from data.whatsapp_alert import send_whatsapp
+from data.sms_sender import send_sms
 
 class AlertNotifier:
-    def __init__(self):
-        self.ai = AIMedicalAdvisor()
+    def __init__(self, ai_advisor):
+        self.ai = ai_advisor
 
-    def notify(self, alert, reading):
-        status = alert["status"]
-
-        if status == "normal":
-            return
-
+    def notify(self, alert_type, reading):
         advice = self.ai.get_advice(reading)
 
         message = (
-            f"🩺 Diabetes Alert ({status.upper()})\n"
-            f"Glucose: {reading['value']} mg/dL\n"
+            f"🚨 Glucose Alert\n"
+            f"Type: {alert_type}\n"
+            f"Value: {reading['value']} mg/dL\n"
             f"Trend: {reading['trend']}\n\n"
-            f"AI Medical Advice:\n{advice}"
+            f"Advice:\n{advice}"
         )
 
-        print("🔥 Attempting WhatsApp alert...")
-        wa_sid = send_whatsapp(message)
-
-        if wa_sid is None:
+        try:
+            print("🔥 Attempting WhatsApp alert...")
+            send_whatsapp(message)
+        except Exception as e:
+            print("❌ WhatsApp failed:", e)
             print("↩️ Falling back to SMS...")
             send_sms(message)
